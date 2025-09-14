@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppLayout } from './components/AppLayout/AppLayout';
-import { HomePage } from './pages/Home.page';
+import { HealthDeclareFormPage } from './pages/HealthDeclareFormPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
-    children: [{ path: '', element: <HomePage /> }],
+    children: [{ path: '', element: <HealthDeclareFormPage /> }],
   },
 ]);
 
