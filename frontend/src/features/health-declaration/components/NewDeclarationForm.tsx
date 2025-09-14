@@ -1,27 +1,51 @@
 import { Button, Card, Radio, Stack, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
+import { useNewDeclarations } from '../hooks/useNewDeclaration';
 
-interface HealthDeclareFormValues {
+interface NewDeclarationFormValues {
   fullName: string;
   temperature: string;
-  isInCloseContactCovid: boolean;
+  isInCloseContactCovid: 'yes' | 'no';
 }
 
-export function HealthDeclareFormPage() {
-  const healthDeclareForm = useForm<HealthDeclareFormValues>({
+export function NewDeclarationForm() {
+  const { mutateAsync: createNewDeclaration } = useNewDeclarations();
+
+  const healthDeclareForm = useForm<NewDeclarationFormValues>({
     mode: 'uncontrolled',
     validate: {
       fullName: isNotEmpty('Full name is required'),
-      temperature: (value) =>
-        /^\d{2}\.\d{1}$/.test(value)
-          ? null
-          : 'Please enter a valid temperature in degree Celsius (e.g. 36.5)',
+      temperature: (value) => {
+        if (!/^\d{2}\.\d{1}$/.test(value))
+          return 'Please enter a valid temperature in degree Celsius (e.g. 36.5)';
+        if (Number(value) < 35 || Number(value) > 42) return 'Temperature must be between 35 to 42';
+        return null;
+      },
       isInCloseContactCovid: isNotEmpty('Please select an option'),
     },
   });
 
-  const onSubmitHealthDeclaration = (values: HealthDeclareFormValues) => {
-    console.log('vvv', values);
+  const onSubmitHealthDeclaration = async (values: NewDeclarationFormValues) => {
+    try {
+      await createNewDeclaration({
+        full_name: values.fullName,
+        temperature: Number(values.temperature),
+        close_contact_with_covid: values.isInCloseContactCovid === 'yes' ? true : false,
+      });
+      notifications.show({
+        title: 'Success!',
+        message: 'Successfully created new declaration',
+        color: 'green',
+      });
+      healthDeclareForm.reset();
+    } catch (err) {
+      notifications.show({
+        title: 'Error!',
+        message: 'Something went wrong!',
+        color: 'red',
+      });
+    }
   };
 
   return (
