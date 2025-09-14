@@ -1,12 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppLayout } from './components/AppLayout/AppLayout';
-import { HealthDeclareFormPage } from './pages/HealthDeclareFormPage';
+import { ListDeclarationPage } from './pages/health-declaration/ListDeclarations';
+import { NewDeclarationPage } from './pages/health-declaration/NewDeclaration';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
-    children: [{ path: '', element: <HealthDeclareFormPage /> }],
+    children: [
+      { path: '', element: <ListDeclarationPage /> },
+      { path: '/new', element: <NewDeclarationPage /> },
+    ],
   },
 ]);
 
