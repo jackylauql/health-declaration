@@ -6,7 +6,7 @@ interface SymptomsAttributes {
   symptom_name: string;
 }
 
-class Symptoms extends Model<SymptomsAttributes> implements SymptomsAttributes {
+class Symptoms extends Model<SymptomsAttributes> {
   public id!: number;
   public symptom_name!: string;
 

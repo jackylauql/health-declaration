@@ -12,10 +12,10 @@ interface DeclarationsAttributes {
 interface DeclarationsCreationAttributes
   extends Optional<DeclarationsAttributes, "id"> {}
 
-class Declarations
-  extends Model<DeclarationsAttributes, DeclarationsCreationAttributes>
-  implements DeclarationsAttributes
-{
+class Declarations extends Model<
+  DeclarationsAttributes,
+  DeclarationsCreationAttributes
+> {
   public id!: number;
   public full_name!: string;
   public temperature!: number;

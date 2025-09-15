@@ -9,10 +9,7 @@ interface Declarations_Symptoms_RelationsAttributes {
   symptom_id: number;
 }
 
-class Declarations_Symptoms_Relations
-  extends Model<Declarations_Symptoms_RelationsAttributes>
-  implements Declarations_Symptoms_RelationsAttributes
-{
+class Declarations_Symptoms_Relations extends Model<Declarations_Symptoms_RelationsAttributes> {
   public id!: number;
   public declaration_id!: number;
   public symptom_id!: number;
