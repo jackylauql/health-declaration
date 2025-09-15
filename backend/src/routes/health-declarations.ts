@@ -91,14 +91,16 @@ router.post("/", async (req, res) => {
       );
 
       const symptom_ids = req.body.symptoms;
-      for (let i = 0; i < symptom_ids.length; i++) {
-        await Declarations_Symptoms_Relations.create(
-          {
-            symptom_id: symptom_ids[i],
-            declaration_id: result.id,
-          },
-          { transaction: t }
-        );
+      if (symptom_ids && symptom_ids.length > 0) {
+        for (let i = 0; i < symptom_ids.length; i++) {
+          await Declarations_Symptoms_Relations.create(
+            {
+              symptom_id: symptom_ids[i],
+              declaration_id: result.id,
+            },
+            { transaction: t }
+          );
+        }
       }
       return result;
     });
