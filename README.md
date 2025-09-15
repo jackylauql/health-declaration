@@ -10,6 +10,13 @@ For running locally, please refer to the instructions below.
 - Database: PostgreSQL
 - Hosting: AWS EC2 / S3
 
+## Tests
+
+Automated e2e test were created using playwright, to run them locally:
+
+1. cd frontend
+2. npx playwright test
+
 ## Running Locally (with Docker)
 
 1. git clone https://github.com/jackylauql/health-declaration.git
