@@ -46,7 +46,7 @@ const ListDeclarationTable = () => {
               <Table.Td align="center">
                 {d.close_contact_with_covid ? <YesBadge /> : <NoBadge />}
               </Table.Td>
-              <Table.Td align="center">{dayjs(d.createdAt).format('DD/MM/YYYY hh:mm')}</Table.Td>
+              <Table.Td align="center">{dayjs(d.createdAt).format('DD/MM/YYYY HH:MM')}</Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>
@@ -62,7 +62,7 @@ const ListDeclarationTable = () => {
           </Group>
         </Stack>
 
-        {data?.data.meta.total_pages && (
+        {data?.data.meta.total_pages ? (
           <Group justify="end" align="center">
             <Group gap={4}>
               <Text size="sm">Page Size: </Text>
@@ -89,6 +89,8 @@ const ListDeclarationTable = () => {
               }
             />
           </Group>
+        ) : (
+          ''
         )}
       </Stack>
     </>
