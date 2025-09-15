@@ -14,12 +14,14 @@ For running locally, please refer to the instructions below.
 
 1. git clone https://github.com/jackylauql/health-declaration.git
 2. cd health-declaration
-3. docker compose -f docker-compose-local.yml up --build
-4. open another terminal
-5. cd health-declaration/backend
-6. npx sequelize-cli db:migrate
-7. npx sequelize-cli db:seed:all
-8. check that the app is working at http://localhost:5173
+3. ensure docker desktop is running
+4. docker compose -f docker-compose-local.yml up --build
+5. open another terminal
+6. cd health-declaration/backend
+7. npm install
+8. npx sequelize-cli db:migrate
+9. npx sequelize-cli db:seed:all
+10. check that the app is working at http://localhost:5173
 
 ## Running Locally (without Docker)
 
