@@ -6,6 +6,7 @@ export type LIST_DECLARATIONS_RESPONSE = {
   results: {
     full_name: string;
     temperature: number;
+    symptom_ids: string[];
     close_contact_with_covid: boolean;
     createdAt: string;
     updatedAt: string;

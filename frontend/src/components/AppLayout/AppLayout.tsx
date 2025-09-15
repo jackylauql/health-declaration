@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Button, Flex, Group, Stack, Tabs, Text } from '@mantine/core';
+import { Box, Button, Group, Stack, Text } from '@mantine/core';
 
 const TitleAndSubtitle = () => {
   return (
@@ -23,14 +23,16 @@ const TitleAndNav = () => {
 const AppLayout = () => {
   const navigate = useNavigate();
   return (
-    <Flex justify="center" align="center" direction="column" p={24}>
-      <TitleAndNav />
-      <Group mt={16} mb={16}>
-        <Button onClick={() => navigate('/new')}>New Declaration</Button>
-        <Button onClick={() => navigate('/')}>All Declarations</Button>
-      </Group>
+    <Box p={24}>
+      <Stack justify="center" align="center" mb={24}>
+        <TitleAndNav />
+        <Group justify="center" align="center">
+          <Button onClick={() => navigate('/new')}>New Declaration</Button>
+          <Button onClick={() => navigate('/')}>All Declarations</Button>
+        </Group>
+      </Stack>
       <Outlet />
-    </Flex>
+    </Box>
   );
 };
 

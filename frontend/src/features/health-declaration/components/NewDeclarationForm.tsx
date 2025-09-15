@@ -1,17 +1,20 @@
-import { Button, Card, Radio, Stack, TextInput } from '@mantine/core';
+import { Button, Card, Checkbox, Radio, SimpleGrid, Stack, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useListSymptomOptions } from '../hooks/useListSymptomOptions';
 import { useNewDeclarations } from '../hooks/useNewDeclaration';
 
 interface NewDeclarationFormValues {
   fullName: string;
   temperature: string;
+  symptoms: string[];
   isInCloseContactCovid: 'yes' | 'no';
 }
 
 export function NewDeclarationForm() {
   const { mutateAsync: createNewDeclaration } = useNewDeclarations();
 
+  const { data: symptomOptions, isFetching, isError } = useListSymptomOptions();
   const healthDeclareForm = useForm<NewDeclarationFormValues>({
     mode: 'uncontrolled',
     validate: {
@@ -31,6 +34,7 @@ export function NewDeclarationForm() {
       await createNewDeclaration({
         full_name: values.fullName,
         temperature: Number(values.temperature),
+        symptoms: values.symptoms,
         close_contact_with_covid: values.isInCloseContactCovid === 'yes' ? true : false,
       });
       notifications.show({
@@ -47,6 +51,8 @@ export function NewDeclarationForm() {
       });
     }
   };
+
+  if (isError) return 'Something went wrong! :(';
 
   return (
     <Card mt="lg" withBorder>
@@ -66,6 +72,19 @@ export function NewDeclarationForm() {
             key={healthDeclareForm.key('temperature')}
             {...healthDeclareForm.getInputProps('temperature')}
           />
+          <Checkbox.Group
+            label="Do you have any of the following symptoms now or within the last 14 days: Cough, smell/test
+impairment, fever, breathing difficulties, body aches, headaches, fatigue, sore throat, diarrhea,
+runny nose(even if your symptoms are mild)?"
+            key={healthDeclareForm.key('symptoms')}
+            {...healthDeclareForm.getInputProps('symptoms')}
+          >
+            <SimpleGrid mt="xs" mb="xs" w="100%" cols={2}>
+              {symptomOptions?.data.map((d) => (
+                <Checkbox value={d.id.toString()} label={d.symptom_name} />
+              ))}
+            </SimpleGrid>
+          </Checkbox.Group>
           <Radio.Group
             label="Have you been in contact with anyone who is
 suspected to have/has been diagnosed with Covid-19 within the last 14 days?"

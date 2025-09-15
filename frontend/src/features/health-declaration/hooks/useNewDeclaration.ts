@@ -4,6 +4,7 @@ import { axiosInstance } from '@/utils/axios';
 export type CREATE_DECLARATION_PAYLOAD = {
   full_name: string;
   temperature: number;
+  symptoms: string[];
   close_contact_with_covid: boolean;
 };
 
