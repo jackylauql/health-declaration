@@ -30,7 +30,6 @@ const ListDeclarationTable = () => {
               <Table.Th ta="center">{symptom.symptom_name}</Table.Th>
             ))}
             <Table.Th ta="center">Close Contact</Table.Th>
-            <Table.Th ta="center">Created At</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
@@ -46,7 +45,6 @@ const ListDeclarationTable = () => {
               <Table.Td align="center">
                 {d.close_contact_with_covid ? <YesBadge /> : <NoBadge />}
               </Table.Td>
-              <Table.Td align="center">{dayjs(d.createdAt).format('DD/MM/YYYY HH:MM')}</Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>
